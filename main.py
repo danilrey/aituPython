@@ -1,18 +1,19 @@
-purchStock = 32.87
-purchNum = 1000
-sumForBuy = purchStock * purchNum
-percent = sumForBuy * 0.02
+a = int(input("Enter the num of packages"))
+discount = 1
 
+if a >= 10 and a <= 19:
+    print("Your discount is 20%")
+    discount = 0.2
+elif a >= 20 and a <= 49:
+    print('Your discount is 30%')
+    discount = 0.3
+elif a >= 50 and a <= 99:
+    print('Your discount is 40%')
+    discount = 0.4
+elif a >= 100:
+    print('Your discount is 50%')
+    discount = 0.5
+else:
+    print('There is no discount for you')
 
-soldStock = 33.92
-sumForSell = soldStock * purchNum
-percent2 = sumForSell * 0.02
-
-
-print("Joe paid for stock: ", sumForBuy-percent,"\n")
-print("Comission: ", percent, "\n")
-print("Sold: ", sumForSell- percent2, "\n")
-print("Sold: ", percent2, "\n")
-
-
-print(" ", sumForSell-sumForBuy-percent-percent2, "\n")
+print(a*99*discount)
