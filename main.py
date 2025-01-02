@@ -1,46 +1,45 @@
-import turtle
-import random
+import matplotlib.pyplot as plt
+import numpy as np
 
-#set up the screen
-screen = turtle.Screen()
-screen.bgcolor("white")
+#prepairing the string
+string = "Data Science is Amazing"
+string = string.replace(" ", "")
+string = string.lower()
 
-#create a turtle object
-pen = turtle.Turtle()
-pen.speed(0)
+#count the number of each letter
+dictLetters = {}
+for l in string:
+    if l in dictLetters:
+        dictLetters[l] += 1
+    else:
+        dictLetters[l] = 1
 
-#function to draw a star
-def draw_star(size, color):
-    pen.color(color)
-    pen.begin_fill()
-    for _ in range(5):
-        pen.forward(size)
-        pen.right(144)
-        pen.forward(size)
-        pen.right(72 - 144)
-    pen.end_fill()
+#prepare data for plotting
+letters = list(dictLetters.keys())
+counts = list(dictLetters.values())
 
-#function to draw a pattern
-def draw_pattern(repetitions, size_variation, colors):
-    for _ in range(repetitions):
-#setting random sizes of each star
-        size = random.uniform(50, size_variation)
-        color = random.choice(colors)
-        x = random.randint(-200, 200)
-        y = random.randint(-200, 200)
-        pen.penup()
-        pen.goto(x, y)
-        pen.pendown()
-#draw the star by random parameters
-        draw_star(size, color)
+#plotting the data
+fig, ax = plt.subplots()
+ax.bar(letters, counts, width=0.9)
 
-#get user input
-repetitions = int(input("Enter the number of repetitions: "))
-size_variation = int(input("Enter the maximum size: "))
-colors = input("Enter the colors: ").split(',')
+#adding title and labels
+ax.set_title('Number of letters in string "Data Science is Amazing"')
+ax.set_xlabel('Letters')
+ax.set_ylabel('Counts')
 
-#draw the pattern by user input
-draw_pattern(repetitions, size_variation, colors)
+#show the plot
+plt.show()
 
-pen.hideturtle()
-turtle.done()
+xAxis = [1, 2, 3, 4, 5]
+yAxis = [2, 4, 6, 8, 10]
+
+#plotting the data
+plt.plot(xAxis,yAxis)
+
+#set title and labels
+plt.title("Line chart")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+
+#showing
+plt.show()
