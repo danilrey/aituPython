@@ -1,20 +1,46 @@
-def Fibonacci(num):
-#two conditions to end the recursion
-    if num <= 0:
-        return 0
-    elif num == 1:
-        return 1
-    else:
-#recursion finding the sum of the two previous numbers
-        return Fibonacci(num - 1) + Fibonacci(num - 2)
-#loop to print the first 10 numbers of the Fibonacci sequence
-print([Fibonacci(i) for i in range(10)],'\n')
+import turtle
+import random
 
-nums = []
-#first input
-inp = input("Enter num: ")
-while inp != "stop":
-#after each iteration ask the input again and append the num in list
-    nums.append(int(inp))
-    inp = input("Enter num: ")
-print(nums, '\n')
+#set up the screen
+screen = turtle.Screen()
+screen.bgcolor("white")
+
+#create a turtle object
+pen = turtle.Turtle()
+pen.speed(0)
+
+#function to draw a star
+def draw_star(size, color):
+    pen.color(color)
+    pen.begin_fill()
+    for _ in range(5):
+        pen.forward(size)
+        pen.right(144)
+        pen.forward(size)
+        pen.right(72 - 144)
+    pen.end_fill()
+
+#function to draw a pattern
+def draw_pattern(repetitions, size_variation, colors):
+    for _ in range(repetitions):
+#setting random sizes of each star
+        size = random.uniform(50, size_variation)
+        color = random.choice(colors)
+        x = random.randint(-200, 200)
+        y = random.randint(-200, 200)
+        pen.penup()
+        pen.goto(x, y)
+        pen.pendown()
+#draw the star by random parameters
+        draw_star(size, color)
+
+#get user input
+repetitions = int(input("Enter the number of repetitions: "))
+size_variation = int(input("Enter the maximum size: "))
+colors = input("Enter the colors: ").split(',')
+
+#draw the pattern by user input
+draw_pattern(repetitions, size_variation, colors)
+
+pen.hideturtle()
+turtle.done()
