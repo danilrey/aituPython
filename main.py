@@ -1,66 +1,45 @@
-integers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+import re
+from time import process_time
 
-def removeOdd(numbers):
-#iterate through the list of numbers and remove the odd numbers which module 2 is not equal to 0
-    for num in numbers:
-        if num % 2 != 0:
-            numbers.remove(num)
-    return numbers
+myStr = "Hello, this is the second assignment of the course of Python Programming, which is named Introduction to Programming two."
+#clean the string using regular expression and re library
+cleanedStr = re.sub(r'[^\w\s]', '', myStr)
+#this function change pattern symbols to empty string, pattern include all non-word non-space non-number characters
 
-print(removeOdd(integers), "\n")
+print(cleanedStr, '\n')
 
-set1 = {"apple", "banana", "cherry", "orange", "kiwi", "melon"}
-set2 = {"google", "microsoft", "apple", "banana", "orange", "kiwi", "melon"}
+#counting the vowels by using for loop and compare each character with vowels
+vowels = 'aeiou'
+countVowels = 0
+for i in cleanedStr:
+    if i in vowels:
+        countVowels += 1
 
-def findCommon(set1, set2):
-#find the common elements in the two sets using ready intersection function
-    common = set1.intersection(set2)
-    return common
+print(countVowels, '\n')
 
-print(findCommon(set1, set2), "\n")
+#counting the consonants by using for loop and compare each character with consonants(the same as vowels)
+consonants = 'bcdfghjklmnpqrstvwxyz'
+countConsonants = 0
+for i in cleanedStr:
+    if i in consonants:
+        countConsonants += 1
 
-dict = {
-    "key1": 1,
-    "key2": 2,
-    "key3": 3,
-    "key4": 4,
-    "key5": 5,
-    "key6": 6,
-    "key7": 7,
-}
+print(countConsonants, '\n')
 
-def revDict(dictionary):
-#reverse the key-value dictionary by iterating through the dictionary and creating a new dictionary with the values as keys and keys as values
-    newDict = {}
-    for key, value in dictionary.items():
-        newDict[value] = key
-    return newDict
+newStr = cleanedStr
+word = str(input("Enter word: "))
+changeWord = 'Programming'
+#changing 'Programming' to entered word
+for i in range(len(newStr)):
+#check for 'Programming' in our string by choosing more characters using ':'
+    if newStr[i:i+len(changeWord)] == changeWord:
+#replacing the 'Programming' by our word and piecewise string adding
+        newStr = newStr[:i] + word + newStr[i+len(changeWord):]
 
-print(revDict(dict), "\n")
+print(newStr,'\n')
 
-tup = ('Javascript', 56, 3.14, True, 'Python', 7, 3.14, 'Javascript', 7)
+#using split we create a set of words(cause we need unique) and use sorted() for sorting the words
+words = set(cleanedStr.split())
+words = sorted(words)
 
-def countTypes(tup):
-#count the number of each type in the tuple by creating a dictionary with type-number pairs
-    types = {}
-    for item in tup:
-        if type(item) in types:
-            types[type(item)] += 1
-        else:
-            types[type(item)] = 1
-    return types
-
-print(countTypes(tup), "\n")
-
-#convert the tuple to a list, add 'CSS', 'HTML', 8, 9 to the list, remove 3.14, 7, 'Javascript' from the list and convert the list back to a tuple
-tup = list(tup)
-tup.append('CSS')
-tup.append('HTML')
-tup.append(8)
-tup.append(9)
-tup.remove(3.14)
-tup.remove(7)
-tup.remove('Javascript')
-tup = tuple(tup)
-
-print(tup)
+print(words,'\n')
