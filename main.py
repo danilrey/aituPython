@@ -1,45 +1,34 @@
-import matplotlib.pyplot as plt
-import numpy as np
 
-#prepairing the string
-string = "Data Science is Amazing"
-string = string.replace(" ", "")
-string = string.lower()
+class RetailItem:
+    def __init__(self, description, units, price):
+        self.description = description
+        self.units = units
+        self.price = price
 
-#count the number of each letter
-dictLetters = {}
-for l in string:
-    if l in dictLetters:
-        dictLetters[l] += 1
-    else:
-        dictLetters[l] = 1
+item1 = RetailItem("Jacket",12,59.95)
+item2 = RetailItem("Designer jeans", 40,34.95)
+item3 = RetailItem("Shirt",20,24.95)
 
-#prepare data for plotting
-letters = list(dictLetters.keys())
-counts = list(dictLetters.values())
 
-#plotting the data
-fig, ax = plt.subplots()
-ax.bar(letters, counts, width=0.9)
+class CashRegister:
+    def __init__(self):
+        self.items = []
+    def purchase_item(self,item):
+        self.items.append(item)
+    def get_total(self):
+        return sum((item.price*item.units) for item in self.items)
+    def show_items(self):
+        for item in self.items:
+            print(f"Description: {item.description}, Units: {item.units}, Price: {item.price}")
+    def clear(self):
+        self.items = []
 
-#adding title and labels
-ax.set_title('Number of letters in string "Data Science is Amazing"')
-ax.set_xlabel('Letters')
-ax.set_ylabel('Counts')
 
-#show the plot
-plt.show()
-
-xAxis = [1, 2, 3, 4, 5]
-yAxis = [2, 4, 6, 8, 10]
-
-#plotting the data
-plt.plot(xAxis,yAxis)
-
-#set title and labels
-plt.title("Line chart")
-plt.xlabel("X-axis")
-plt.ylabel("Y-axis")
-
-#showing
-plt.show()
+register = CashRegister()
+register.purchase_item(item1)
+register.purchase_item(item2)
+register.purchase_item(item3)
+print(register.get_total())
+register.show_items()
+register.clear()
+register.show_items()
