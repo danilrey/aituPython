@@ -1,34 +1,40 @@
-
-class RetailItem:
-    def __init__(self, description, units, price):
-        self.description = description
-        self.units = units
-        self.price = price
-
-item1 = RetailItem("Jacket",12,59.95)
-item2 = RetailItem("Designer jeans", 40,34.95)
-item3 = RetailItem("Shirt",20,24.95)
-
-
-class CashRegister:
+class Employee:
     def __init__(self):
-        self.items = []
-    def purchase_item(self,item):
-        self.items.append(item)
-    def get_total(self):
-        return sum((item.price*item.units) for item in self.items)
-    def show_items(self):
-        for item in self.items:
-            print(f"Description: {item.description}, Units: {item.units}, Price: {item.price}")
-    def clear(self):
-        self.items = []
+        self.set_name()
+        self.set_number()
+    def set_name(self):
+        self.name = str(input("Enter the name:"))
+    def set_number(self):
+        self.number = int(input("Enter the number:"))
+    def get_name(self):
+        print(self.name)
+    def get_number(self):
+        print(self.number)
 
+class ProductionWorker(Employee):
+    def __init__(self):
+        super().__init__()
+        self.set_shift()
+        self.set_rate()
+    def set_name(self):
+        super().set_name()
+    def set_number(self):
+        super().set_number()
+    def set_shift(self):
+        self.shift = int(input("Enter shift 1 or 2:"))
+    def set_rate(self):
+        self.rate = float(input("Enter rate:"))
+    def get_name(self):
+        super().get_name()
+    def get_number(self):
+        super().get_number()
+    def get_shift(self):
+        print(self.shift)
+    def get_rate(self):
+        print(self.rate)
 
-register = CashRegister()
-register.purchase_item(item1)
-register.purchase_item(item2)
-register.purchase_item(item3)
-print(register.get_total())
-register.show_items()
-register.clear()
-register.show_items()
+product = ProductionWorker()
+product.get_name()
+product.get_number()
+product.get_shift()
+product.get_rate()
