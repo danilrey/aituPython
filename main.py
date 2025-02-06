@@ -1,24 +1,36 @@
-class PrimeNumbers:
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
+import threading
+import time
+from functools import wraps
 
-    def __iter__(self):
-        return self.prime_generate()
+def timeout(seconds: int):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            result = [None]
 
-    def prime_generate(self):
-        for num in range(self.start, self.end + 1):
-            if self.is_prime(num):
-                yield num
+            def target():
+                try:
+                    result[0] = func(*args, **kwargs)
+                except Exception as e:
+                    result[0] = e
 
-    def is_prime(self, num):
-        if num < 2:
-            return False
-        for i in range(2, int(num ** 0.5) + 1):
-            if num % i == 0:
-                return False
-        return True
+            thread = threading.Thread(target=target)
+            thread.start()
+            thread.join(seconds)
+            if thread.is_alive():
+                raise TimeoutError(f"Function '{func.__name__}' timed out after {seconds} seconds")
+            if isinstance(result[0], Exception):
+                raise result[0]
+            return result[0]
+        return wrapper
+    return decorator
 
-primes = PrimeNumbers(10,50)
-for p in primes:
-    print(p, end = " ")
+@timeout(3)
+def slow_function():
+    time.sleep(5)
+    return "Finished"
+
+try:
+    print(slow_function())
+except TimeoutError as e:
+    print(e)
